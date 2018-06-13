@@ -16,6 +16,7 @@ const generateValues = (numberOfValues) => {
 };
 class Roller extends React.PureComponent {
   state = {
+    firstRoll: true,
     isRolling: false,
     selected: [],
     values: [],
@@ -24,19 +25,25 @@ class Roller extends React.PureComponent {
     if (numberOfDice !== values.length) {
       const newValues = generateValues(numberOfDice);
       return {
+        firstRoll: true,
+        selected: Array.from(new Array(6)).map(() => false),
         values: newValues,
       };
     }
     return null;
   }
+  get hasSelectedDice() {
+    return this.state.selected.includes(true);
+  }
   rerollDice = () => {
     this.setState({
-      selected: Array.from(new Array(this.props.numberOfDice)).map(() => false),
+      selected: Array.from(new Array(6)).map(() => false),
       values: generateValues(this.props.numberOfDice),
     });
   }
   rollDice = () => {
     this.setState({
+      firstRoll: false,
       isRolling: true,
     }, () => {
       for (let i = 0; i < Math.floor(this.props.rollingTime * 10); i += 1) {
@@ -57,7 +64,7 @@ class Roller extends React.PureComponent {
     });
   }
   render() {
-    const { isRolling, values } = this.state;
+    const { firstRoll, isRolling, values } = this.state;
     const { bankPoints } = this.props;
     const { t } = this.context;
     return (
@@ -72,7 +79,11 @@ class Roller extends React.PureComponent {
               value={val}
             />
           </Button>))}
-        <Button onClick={this.rollDice} disabled={isRolling} title={t(LocaleKeys.ROLL_DICE)}>
+        <Button
+          onClick={this.rollDice}
+          disabled={isRolling || (firstRoll && !this.hasSelectedDice)}
+          title={t(LocaleKeys.ROLL_DICE)}
+        >
           <IconDice />
         </Button>
         <Button
