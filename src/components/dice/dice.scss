@@ -1,0 +1,7 @@
+@import '~_variables';
+
+.c-dice {
+  &.is-selected .c-icon {
+    fill: color(secondary);
+  }
+}

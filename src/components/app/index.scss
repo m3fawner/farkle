@@ -1,0 +1,14 @@
+@import '~_variables';
+
+.c-icon {
+  width: 2em;
+  height: 2em;
+  fill: color(primary);
+}
+.c-button:hover:not(:disabled) .c-icon {
+  fill: color(secondary);
+}
+.c-button:disabled .c-icon {
+  opacity: 0.5
+}
+

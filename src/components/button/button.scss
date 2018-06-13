@@ -1,0 +1,9 @@
+.c-button {
+  background: none;
+  border: none;
+
+  &:disabled {
+    cursor: default;
+  }
+  cursor: pointer;
+}
