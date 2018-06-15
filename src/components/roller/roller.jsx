@@ -107,6 +107,8 @@ Roller.propTypes = {
   bankPoints: PropTypes.func.isRequired,
   numberOfDice: PropTypes.number.isRequired,
   rollingTime: PropTypes.number,
+  updateCurrentRollValues: PropTypes.func.isRequired,
+  updateSelectedValues: PropTypes.func.isRequired,
 };
 
 Roller.defaultProps = {
