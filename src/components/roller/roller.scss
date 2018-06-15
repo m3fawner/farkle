@@ -1,3 +1,7 @@
+@import '~_variables';
 .c-roller {
   display: flex;
+  .c-button {
+    padding: 0 spacing(small);
+  }
 }

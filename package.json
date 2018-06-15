@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "webpack-dev-server",
-    "icons": "node src/config/icons.build.js"
+    "icons": "node src/config/icons.build.js",
+    "test": "yarn mocha --require babel-core/register ./src/**/*.spec.js"
   },
   "devDependencies": {
     "autoprefixer": "^8.6.2",
@@ -39,14 +40,18 @@
   },
   "dependencies": {
     "camelcase": "^5.0.0",
+    "chai": "^4.1.2",
     "classnames": "^2.2.6",
     "del": "^3.0.0",
     "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
+    "eslint-plugin-mocha": "^5.0.0",
     "fs-extra": "^6.0.1",
     "glob": "^7.1.2",
     "history": "^4.7.2",
     "i18next": "^11.3.2",
     "i18next-xhr-backend": "^1.5.1",
+    "mocha": "^5.2.0",
     "node-sass": "^4.9.0",
     "normalize.css": "^8.0.0",
     "object-assign": "^4.1.1",

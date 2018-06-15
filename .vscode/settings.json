@@ -1,4 +1,11 @@
 {
     "editor.tabSize": 2,
-    "eslint.packageManager": "yarn"
+    "eslint.packageManager": "yarn",
+    "mocha.files.glob": "./src/**/*.spec.js",
+    "mocha.options": {
+        "compilers": "js:babel-core/register"
+    },
+    "mocha.requires": [
+        "babel-core/register"
+    ]
 }

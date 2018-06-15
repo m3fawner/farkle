@@ -8,3 +8,13 @@ $color: (
 @function color($key) {
     @return map-get($color, $key);
 }
+$spacing: (
+  xsmall: .25rem,
+  small: .5rem,
+  medium: .75rem,
+  large: 1rem,
+  xlarge: 1.5rem
+) !default;
+@function spacing($key) {
+  @return map-get($spacing, $key);
+}

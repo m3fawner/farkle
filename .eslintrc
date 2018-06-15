@@ -1,11 +1,22 @@
 {
     "extends": "airbnb",
+    "plugins": [
+        "mocha",
+        "chai-friendly"
+    ],
+    "rules": {
+      "mocha/no-exclusive-tests": "error",
+      "no-unused-expressions": 0,
+      "chai-friendly/no-unused-expressions": 2
+    },
     "env": {
         "browser": true,
         "es6": true
     },
     "globals": {
-        "LOCALE_HASH": true
+        "LOCALE_HASH": true,
+        "describe": true,
+        "it": true
     },
     "parser": "babel-eslint"
 }

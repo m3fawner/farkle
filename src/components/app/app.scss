@@ -1,0 +1,13 @@
+@import '~_variables';
+.c-farkle {
+  display: grid;
+  grid-template-columns: 5% 90% 5%;
+  grid-template-areas: ". body .";
+  grid-template-rows: 100%;
+  height: 100%;
+  background-color: color(accent);
+}
+
+.c-app-body {
+  grid-area: body;
+}
