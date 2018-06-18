@@ -9,12 +9,8 @@ const FarkleGame = () => (
     <Roller
       numberOfDice={6}
       bankPoints={() => {}}
-      updateCurrentRollValues={(values) => {
-        console.log(values);
-      }}
-      updateSelectedValues={(values) => {
-        console.log(values);
-      }}
+      updateCurrentRollValues={() => {}}
+      updateSelectedValues={() => {}}
     />
   </div>
 );

@@ -6,6 +6,7 @@
         "compilers": "js:babel-core/register"
     },
     "mocha.requires": [
-        "babel-core/register"
+        "babel-core/register",
+        "./src/config/polyfills.js"
     ]
 }
