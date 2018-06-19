@@ -17,13 +17,17 @@ const SCORING_BASE_OBJECT = new Immutable({
   5: 0,
   6: 0,
 });
-export const scoreDice = (dice, selected) => {
+
+const extractScoringObject = (dice, selected) => {
   const selectedDice = dice.reduce((prev, curr, i) => (selected[i] ? prev.concat(curr) : prev), []);
   const sorted = selectedDice.sort((a, b) => a - b);
-  const score = sorted.reduce(
-    (prev, curr) => prev.update(curr, val => val + 1),
-    SCORING_BASE_OBJECT,
-  );
+  const score = sorted.reduce((prev, curr) =>
+    prev.update(curr, val => val + 1), SCORING_BASE_OBJECT);
+  return score;
+};
+
+export const scoreDice = (dice, selected = Array.from(new Array(dice.length)).map(() => true)) => {
+  const score = extractScoringObject(dice, selected);
   let scoreTotal = 0;
   Object.keys(score).forEach((key) => {
     switch (key) {
@@ -56,11 +60,35 @@ export const scoreDice = (dice, selected) => {
   return scoreTotal;
 };
 
-export const hasScoringDice = dice => scoreDice(
-  dice,
-  Array.from(new Array(dice.length)).map(() => true),
-) > 0;
+export const hasScoringDice = dice => scoreDice(dice) > 0;
 
-export const isHotDice = (dice, selected) => {
-
+export const isHotDice = (dice, selected = Array.from(new Array(dice.length)).map(() => true)) => {
+  if (selected.includes(false)) {
+    return false;
+  }
+  let score = extractScoringObject(dice, selected);
+  // Straight and All Pairs Check
+  const nonZeroCounts = Object.values(score)
+    .filter(num => num > 0);
+  if (nonZeroCounts.length === 6 || (dice.length === 6 && nonZeroCounts.length === 3)) {
+    return true;
+  }
+  Object.keys(score).forEach((key) => {
+    switch (key) {
+      case '1':
+      case '5':
+        score = score.set(key, 0);
+        break;
+      case '2':
+      case '3':
+      case '4':
+      case '6':
+        score = score.update(key, count => count % 3);
+        break;
+      default:
+        break;
+    }
+  });
+  return Object.values(score).reduce((prev, curr) => (curr > 0 ? false : prev), true);
 };
+
