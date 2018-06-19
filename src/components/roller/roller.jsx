@@ -18,7 +18,6 @@ class Roller extends React.PureComponent {
   state = {
     firstRoll: true,
     isRolling: false,
-    selected: [],
     values: [],
   }
   componentDidMount() {
@@ -29,18 +28,16 @@ class Roller extends React.PureComponent {
       const newValues = generateValues(numberOfDice);
       return {
         firstRoll: true,
-        selected: Array.from(new Array(6)).map(() => false),
         values: newValues,
       };
     }
     return null;
   }
   get hasSelectedDice() {
-    return this.state.selected.includes(true);
+    return this.props.selected.includes(true);
   }
   rerollDice = () => {
     this.setState({
-      selected: Array.from(new Array(6)).map(() => false),
       values: generateValues(this.props.numberOfDice),
     });
   }
@@ -61,11 +58,8 @@ class Roller extends React.PureComponent {
     });
   }
   selectDice = (index) => {
-    const selected = Array.from(this.state.selected);
+    const selected = Array.from(this.props.selected);
     selected[index] = !selected[index];
-    this.setState({
-      selected,
-    });
     this.props.updateSelectedValues(selected);
   }
   render() {
@@ -80,7 +74,7 @@ class Roller extends React.PureComponent {
             key={Math.random()}
           >
             <Dice
-              isSelected={this.state.selected[index]}
+              isSelected={this.props.selected[index]}
               value={val}
             />
           </Button>))}
@@ -107,6 +101,7 @@ Roller.propTypes = {
   bankPoints: PropTypes.func.isRequired,
   numberOfDice: PropTypes.number.isRequired,
   rollingTime: PropTypes.number,
+  selected: PropTypes.arrayOf(PropTypes.bool).isRequired,
   updateCurrentRollValues: PropTypes.func.isRequired,
   updateSelectedValues: PropTypes.func.isRequired,
 };

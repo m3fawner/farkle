@@ -32,15 +32,7 @@ Scoring.propTypes = {
 Scoring.defaultProps = {
   currentScore: 0,
   rollScore: 0,
-  previousRolls: [{
-    rollNumber: 0,
-    values: [1, 5, 1],
-    score: 250,
-  }, {
-    rollNumber: 1,
-    values: [1, 1, 1],
-    score: 1000,
-  }],
+  previousRolls: [],
 };
 Scoring.contextTypes = {
   t: PropTypes.func.isRequired,

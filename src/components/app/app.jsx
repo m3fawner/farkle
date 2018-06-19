@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch, Redirect } from 'react-router';
 import 'normalize.css/normalize.css';
 import I18nContext from './i18nContext';
-import FarkleGame from '../farkleGame/farkleGame';
+import FarkleGame from '../farkleGame/farkleGame.contextual';
 import './index.scss';
 import './app.scss';
 
