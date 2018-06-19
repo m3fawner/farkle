@@ -17,4 +17,13 @@ describe('Game Reducer', () => {
       }).currentlySelected).to.deep.equal([true]);
     });
   });
+
+  describe('#UPDATE_CURRENT_ROLL_VALUES', () => {
+    it('should assign the payload onto the store at `currentRoll`', () => {
+      expect(reducer(INITIAL_STORE, {
+        type: TYPES.UPDATE_CURRENT_ROLL_VALUES,
+        payload: [1],
+      }).currentRoll).to.deep.equal([1]);
+    });
+  });
 });

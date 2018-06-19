@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FarkleGame from './farkleGame';
-import { UpdateSelected } from '../../redux/game/game.actions';
+import { UpdateCurrentRollValues, UpdateSelected } from '../../redux/game/game.actions';
 import { SelectedDice } from '../../redux/game/game.selectors';
 
 const mapStateToProps = store => ({
@@ -9,6 +9,7 @@ const mapStateToProps = store => ({
 });
 
 const mapActionsToTarget = dispatch => bindActionCreators({
+  updateCurrentRollValues: UpdateCurrentRollValues,
   updateSelectedValues: UpdateSelected,
 }, dispatch);
 

@@ -22,6 +22,7 @@ class Roller extends React.PureComponent {
   }
   componentDidMount() {
     this.props.updateCurrentRollValues(this.state.values);
+    this.props.updateSelectedValues(Array.from(new Array(6)).map(() => false));
   }
   static getDerivedStateFromProps({ numberOfDice }, { values }) {
     if (numberOfDice !== values.length) {
@@ -42,6 +43,7 @@ class Roller extends React.PureComponent {
     });
   }
   rollDice = () => {
+    this.props.updateSelectedValues(Array.from(new Array(6)).map(() => false));
     this.setState({
       firstRoll: false,
       isRolling: true,
