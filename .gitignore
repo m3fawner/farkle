@@ -1,2 +1,4 @@
 node_modules/
 src/icons/react-icons
+.nyc_coverage
+coverage/
