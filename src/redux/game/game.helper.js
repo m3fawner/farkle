@@ -59,9 +59,11 @@ export const scoreDice = (dice, selected = Array.from(new Array(dice.length)).ma
   // Straight and All Pairs Check
   const nonZeroCounts = Object.values(score)
     .filter(num => num > 0);
+  const pairs = Object.values(score)
+    .filter(num => num === 2);
   if (nonZeroCounts.length === 6) {
     scoreTotal = 500;
-  } else if (dice.length === 6 && nonZeroCounts.length === 3) {
+  } else if (pairs.length === 3) {
     scoreTotal = 1000;
   }
   return scoreTotal;

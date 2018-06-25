@@ -34,6 +34,10 @@ describe('Game Helper tests', () => {
     it('should score a straight that is less than 6 as 0', () => {
       expect(scoreDice([2, 3, 4])).to.equal(0);
     });
+
+    it('should not score dice with nearly 3 pairs (encountered during testing)', () => {
+      expect(scoreDice([2, 2, 3, 3, 4, 6], [true, true, true, true, true, false])).to.equal(0);
+    });
   });
 
   describe('#hasScoringDice', () => {
