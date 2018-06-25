@@ -5,6 +5,8 @@ import Scoring from '../scoring/scoring.contextual';
 import './farkleGame.scss';
 
 const FarkleGame = ({
+  bankScore,
+  canBank,
   nextRollDiceCount,
   rollDice,
   selected,
@@ -14,9 +16,10 @@ const FarkleGame = ({
   <div className="c-farkle-game c-app-body">
     <Scoring />
     <Roller
+      canBank={canBank}
       selected={selected}
       numberOfDice={nextRollDiceCount}
-      bankPoints={() => {}}
+      bankScore={bankScore}
       rollDice={rollDice}
       updateCurrentRollValues={updateCurrentRollValues}
       updateSelectedValues={updateSelectedValues}
@@ -25,6 +28,8 @@ const FarkleGame = ({
 );
 
 FarkleGame.propTypes = {
+  bankScore: PropTypes.func.isRequired,
+  canBank: PropTypes.bool.isRequired,
   nextRollDiceCount: PropTypes.number.isRequired,
   rollDice: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.bool).isRequired,

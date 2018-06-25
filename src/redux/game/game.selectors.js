@@ -25,3 +25,8 @@ export const PreviousRolls = createSelector(
   [Game],
   ({ previousRolls }) => previousRolls,
 );
+
+export const CanBank = createSelector(
+  [RollScore],
+  rollScore => rollScore > 0,
+);

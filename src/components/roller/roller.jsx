@@ -38,13 +38,12 @@ class Roller extends React.PureComponent {
   get hasSelectedDice() {
     return this.props.selected.includes(true);
   }
-  rerollDice = () => {
+  performRoll = () => {
     this.setState({
       values: generateValues(this.props.numberOfDice),
     });
   }
-  rollDice = () => {
-    this.props.rollDice();
+  rerollDice = () => {
     this.props.updateSelectedValues(Array.from(new Array(this.props.numberOfDice))
       .map(() => false));
     this.setState({
@@ -52,7 +51,7 @@ class Roller extends React.PureComponent {
       isRolling: true,
     }, () => {
       for (let i = 0; i < Math.floor(this.props.rollingTime * 10); i += 1) {
-        setTimeout(this.rerollDice, i * 100);
+        setTimeout(this.performRoll, i * 100);
       }
       setTimeout(() => {
         this.setState({
@@ -62,14 +61,22 @@ class Roller extends React.PureComponent {
       }, this.props.rollingTime * 1000);
     });
   }
+  rollDice = () => {
+    this.props.rollDice();
+    this.rerollDice();
+  }
   selectDice = (index) => {
     const selected = Array.from(this.props.selected);
     selected[index] = !selected[index];
     this.props.updateSelectedValues(selected);
   }
+  bankScore = () => {
+    this.props.bankScore();
+    this.rerollDice();
+  }
   render() {
     const { firstRoll, isRolling, values } = this.state;
-    const { bankPoints } = this.props;
+    const { canBank } = this.props;
     const { t } = this.context;
     return (
       <div className="c-roller">
@@ -91,9 +98,9 @@ class Roller extends React.PureComponent {
           <IconDice />
         </Button>
         <Button
-          onClick={bankPoints}
-          disabled={!this.canBank}
-          title={this.canBank ? t(LocaleKeys.BANK_POINTS) : t(LocaleKeys.BANK_POINTS_DISABLED)}
+          onClick={this.bankScore}
+          disabled={!canBank}
+          title={t(canBank ? LocaleKeys.BANK_POINTS : LocaleKeys.BANK_POINTS_DISABLED)}
         >
           <IconPiggyBank />
         </Button>
@@ -103,7 +110,8 @@ class Roller extends React.PureComponent {
 }
 
 Roller.propTypes = {
-  bankPoints: PropTypes.func.isRequired,
+  bankScore: PropTypes.func.isRequired,
+  canBank: PropTypes.bool.isRequired,
   numberOfDice: PropTypes.number.isRequired,
   rollDice: PropTypes.func.isRequired,
   rollingTime: PropTypes.number,

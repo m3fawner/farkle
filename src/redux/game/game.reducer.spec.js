@@ -13,7 +13,8 @@ describe('Game Reducer', () => {
   describe('#ROLL_DICE', () => {
     const TEST_STATE = INITIAL_STORE
       .set('currentRoll', [1, 5, 2])
-      .set('currentlySelected', [true, true, false]);
+      .set('currentlySelected', [true, true, false])
+      .set('rollScore', 150);
     it('should add the current roll to the previous rolls', () => {
       expect(reducer(TEST_STATE, {
         type: TYPES.ROLL_DICE,
@@ -28,6 +29,17 @@ describe('Game Reducer', () => {
       expect(reducer(TEST_STATE, {
         type: TYPES.ROLL_DICE,
       }).nextRollDiceCount).to.equal(1);
+    });
+  });
+
+  describe('#BANK_SCORE', () => {
+    const TEST_STATE = INITIAL_STORE
+      .set('rollScore', 150);
+
+    it('should update the current score', () => {
+      expect(reducer(TEST_STATE, {
+        type: TYPES.BANK_SCORE,
+      }).currentScore).to.equal(150);
     });
   });
 

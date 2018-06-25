@@ -21,10 +21,13 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
       return state
         .update('previousRolls', previousRolls => previousRolls.concat({
           rollNumber: previousRolls.length,
-          score: scoreDice(state.currentRoll, state.currentlySelected),
+          score: state.rollScore,
           values: getCurrentlySelectedValues(state.currentRoll, state.currentlySelected),
         }))
         .set('nextRollDiceCount', state.currentRoll.length - state.currentlySelected.filter(selected => selected).length);
+    case TYPES.BANK_SCORE:
+      return state
+        .update('currentScore', currentScore => currentScore + state.rollScore);
     case TYPES.UPDATE_CURRENT_ROLL_VALUES:
       return state
         .set('isFarkleRoll', scoreDice(payload) === 0)

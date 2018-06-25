@@ -35,4 +35,15 @@ describe('Game Selectors', () => {
       expect(selectors.PreviousRolls(SPEC_STORE)).to.equal(INITIAL_STORE.previousRolls);
     });
   });
+
+  describe('#CanBank', () => {
+    it('should return true if the score is above 0', () => {
+      const TEST_STORE = SPEC_STORE.setIn(['game', 'rollScore'], 150);
+      expect(selectors.CanBank(TEST_STORE)).to.be.true;
+    });
+    it('should return false if the store is 0', () => {
+      const TEST_STORE = SPEC_STORE.set('rollScore', 0);
+      expect(selectors.CanBank(TEST_STORE)).to.be.false;
+    });
+  });
 });

@@ -1,4 +1,5 @@
 export const TYPES = {
+  BANK_SCORE: '@@farkle/bank_score',
   ROLL_DICE: '@@farkle/roll_dice',
   UPDATE_CURRENT_ROLL_VALUES: '@@farkle/update_current_roll_values',
   UPDATE_SELECTED: '@@farkle/update_selected',
@@ -16,4 +17,8 @@ export const UpdateCurrentRollValues = values => ({
 
 export const RollDice = () => ({
   type: TYPES.ROLL_DICE,
+});
+
+export const BankScore = () => ({
+  type: TYPES.BANK_SCORE,
 });
