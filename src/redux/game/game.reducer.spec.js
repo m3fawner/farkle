@@ -42,5 +42,19 @@ describe('Game Reducer', () => {
         payload: [1],
       }).rollScore).to.equal(scoreDice([1]));
     });
+
+    it('should be a farkle if there are no scoring values', () => {
+      expect(reducer(INITIAL_STORE, {
+        type: TYPES.UPDATE_CURRENT_ROLL_VALUES,
+        payload: [2],
+      }).isFarkleRoll).to.be.true;
+    });
+
+    it('should not be a farkle if there are scoring values', () => {
+      expect(reducer(INITIAL_STORE, {
+        type: TYPES.UPDATE_CURRENT_ROLL_VALUES,
+        payload: [2, 2, 2],
+      }).isFarkleRoll).to.be.false;
+    });
   });
 });

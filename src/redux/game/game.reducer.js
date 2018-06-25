@@ -8,12 +8,14 @@ export const INITIAL_STORE = new Immutable({
   previousRolls: [],
   currentScore: 0,
   rollScore: 0,
+  isFarkleRoll: false,
 });
 
 export default (state = INITIAL_STORE, { type, payload } = {}) => {
   switch (type) {
     case TYPES.UPDATE_CURRENT_ROLL_VALUES:
       return state
+        .set('isFarkleRoll', scoreDice(payload) === 0)
         .set('rollScore', scoreDice(payload, state.currentlySelected))
         .set('currentRoll', payload);
     case TYPES.UPDATE_SELECTED:
