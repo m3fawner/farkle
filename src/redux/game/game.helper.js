@@ -19,7 +19,14 @@ const SCORING_BASE_OBJECT = new Immutable({
 });
 
 const extractScoringObject = (dice, selected) => {
-  const selectedDice = dice.reduce((prev, curr, i) => (selected[i] ? prev.concat(curr) : prev), []);
+  let toUse = dice;
+  if (Immutable.isImmutable(dice)) {
+    toUse = dice.asMutable();
+  }
+  const selectedDice = toUse.reduce(
+    (prev, curr, i) => (selected[i] ? prev.concat(curr) : prev),
+    [],
+  );
   const sorted = selectedDice.sort((a, b) => a - b);
   const score = sorted.reduce((prev, curr) =>
     prev.update(curr, val => val + 1), SCORING_BASE_OBJECT);

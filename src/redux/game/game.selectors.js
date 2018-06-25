@@ -5,3 +5,13 @@ export const SelectedDice = createSelector(
   [Game],
   ({ currentlySelected }) => currentlySelected,
 );
+
+export const CurrentScore = createSelector(
+  [Game],
+  ({ currentScore }) => currentScore,
+);
+
+export const RollScore = createSelector(
+  [Game],
+  ({ rollScore }) => rollScore,
+);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Roller from '../roller/roller';
-import Scoring from '../scoring/scoring';
+import Scoring from '../scoring/scoring.contextual';
 import './farkleGame.scss';
 
 const FarkleGame = ({ selected, updateCurrentRollValues, updateSelectedValues }) => (
