@@ -10,6 +10,27 @@ describe('Game Reducer', () => {
     })).to.equal(INITIAL_STORE);
   });
 
+  describe('#ROLL_DICE', () => {
+    const TEST_STATE = INITIAL_STORE
+      .set('currentRoll', [1, 5, 2])
+      .set('currentlySelected', [true, true, false]);
+    it('should add the current roll to the previous rolls', () => {
+      expect(reducer(TEST_STATE, {
+        type: TYPES.ROLL_DICE,
+      }).previousRolls).to.deep.equal([{
+        score: 150,
+        rollNumber: 0,
+        values: [1, 5],
+      }]);
+    });
+
+    it('should lower the number of dice for the next roll based on the selected values', () => {
+      expect(reducer(TEST_STATE, {
+        type: TYPES.ROLL_DICE,
+      }).nextRollDiceCount).to.equal(1);
+    });
+  });
+
   describe('#UPDATE_SELECTED', () => {
     it('should assign the payload onto the store at `currentlySelected`', () => {
       expect(reducer(INITIAL_STORE, {
@@ -24,14 +45,6 @@ describe('Game Reducer', () => {
         type: TYPES.UPDATE_SELECTED,
         payload: [true],
       }).rollScore).to.equal(scoreDice([1]));
-    });
-
-    it('should lower the number of dice for the next roll based on the selected values', () => {
-      const TEST_STATE = INITIAL_STORE.set('currentRoll', [1, 5, 2]);
-      expect(reducer(TEST_STATE, {
-        type: TYPES.UPDATE_SELECTED,
-        payload: [true, true, false],
-      }).nextRollDiceCount).to.equal(1);
     });
   });
 

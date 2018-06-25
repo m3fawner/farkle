@@ -23,4 +23,16 @@ describe('Game Selectors', () => {
       expect(selectors.RollScore(SPEC_STORE)).to.equal(INITIAL_STORE.rollScore);
     });
   });
+
+  describe('#NextRollDiceCount', () => {
+    it('should return the nextRollDiceCount property from the store', () => {
+      expect(selectors.NextRollDiceCount(SPEC_STORE)).to.equal(INITIAL_STORE.nextRollDiceCount);
+    });
+  });
+
+  describe('#PreviousRolls', () => {
+    it('should return the previousRolls property from the store', () => {
+      expect(selectors.PreviousRolls(SPEC_STORE)).to.equal(INITIAL_STORE.previousRolls);
+    });
+  });
 });

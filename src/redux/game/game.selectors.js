@@ -15,3 +15,13 @@ export const RollScore = createSelector(
   [Game],
   ({ rollScore }) => rollScore,
 );
+
+export const NextRollDiceCount = createSelector(
+  [Game],
+  ({ nextRollDiceCount }) => nextRollDiceCount,
+);
+
+export const PreviousRolls = createSelector(
+  [Game],
+  ({ previousRolls }) => previousRolls,
+);

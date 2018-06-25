@@ -22,7 +22,8 @@ class Roller extends React.PureComponent {
   }
   componentDidMount() {
     this.props.updateCurrentRollValues(this.state.values);
-    this.props.updateSelectedValues(Array.from(new Array(6)).map(() => false));
+    this.props.updateSelectedValues(Array.from(new Array(this.props.numberOfDice))
+      .map(() => false));
   }
   static getDerivedStateFromProps({ numberOfDice }, { values }) {
     if (numberOfDice !== values.length) {
@@ -43,7 +44,9 @@ class Roller extends React.PureComponent {
     });
   }
   rollDice = () => {
-    this.props.updateSelectedValues(Array.from(new Array(6)).map(() => false));
+    this.props.rollDice();
+    this.props.updateSelectedValues(Array.from(new Array(this.props.numberOfDice))
+      .map(() => false));
     this.setState({
       firstRoll: false,
       isRolling: true,
@@ -102,6 +105,7 @@ class Roller extends React.PureComponent {
 Roller.propTypes = {
   bankPoints: PropTypes.func.isRequired,
   numberOfDice: PropTypes.number.isRequired,
+  rollDice: PropTypes.func.isRequired,
   rollingTime: PropTypes.number,
   selected: PropTypes.arrayOf(PropTypes.bool).isRequired,
   updateCurrentRollValues: PropTypes.func.isRequired,
