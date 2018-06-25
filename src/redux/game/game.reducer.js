@@ -20,6 +20,7 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
         .set('currentRoll', payload);
     case TYPES.UPDATE_SELECTED:
       return state
+        .set('nextRollDiceCount', state.currentRoll.length - payload.filter(selected => selected).length)
         .set('currentlySelected', payload)
         .set('rollScore', scoreDice(state.currentRoll, payload));
     default:

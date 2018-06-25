@@ -25,6 +25,14 @@ describe('Game Reducer', () => {
         payload: [true],
       }).rollScore).to.equal(scoreDice([1]));
     });
+
+    it('should lower the number of dice for the next roll based on the selected values', () => {
+      const TEST_STATE = INITIAL_STORE.set('currentRoll', [1, 5, 2]);
+      expect(reducer(TEST_STATE, {
+        type: TYPES.UPDATE_SELECTED,
+        payload: [true, true, false],
+      }).nextRollDiceCount).to.equal(1);
+    });
   });
 
   describe('#UPDATE_CURRENT_ROLL_VALUES', () => {
