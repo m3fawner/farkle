@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import roller from './roller';
-import { BankScore, RollDice, UpdateCurrentRollValues, UpdateSelected } from '../../redux/game/game.actions';
+import { BankScore, LogFarkle, RollDice, UpdateCurrentRollValues, UpdateSelected } from '../../redux/game/game.actions';
 import { CanBank, IsFarkle, NextRollDiceCount, SelectedDice } from '../../redux/game/game.selectors';
 
 const mapStateToProps = store => ({
@@ -13,6 +13,7 @@ const mapStateToProps = store => ({
 
 const mapActionsToTarget = dispatch => bindActionCreators({
   bankScore: BankScore,
+  logFarkle: LogFarkle,
   rollDice: RollDice,
   updateCurrentRollValues: UpdateCurrentRollValues,
   updateSelectedValues: UpdateSelected,

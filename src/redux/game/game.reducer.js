@@ -10,6 +10,7 @@ export const INITIAL_STORE = new Immutable({
   rollScore: 0,
   isFarkleRoll: false,
   nextRollDiceCount: 6,
+  farkleCount: 0,
 });
 
 const getCurrentlySelectedValues = (values, selected) =>
@@ -31,7 +32,8 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
           + state.previousRolls.reduce((prev, curr) => prev + curr.score, 0)
           + state.rollScore)
         .set('previousRolls', INITIAL_STORE.previousRolls)
-        .set('nextRollDiceCount', INITIAL_STORE.nextRollDiceCount);
+        .set('nextRollDiceCount', INITIAL_STORE.nextRollDiceCount)
+        .set('farkleCount', 0);
     case TYPES.UPDATE_CURRENT_ROLL_VALUES:
       return state
         .set('rollScore', scoreDice(payload, state.currentlySelected))
@@ -40,6 +42,13 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
       return state
         .set('currentlySelected', payload)
         .set('rollScore', scoreDice(state.currentRoll, payload));
+    case TYPES.LOG_FARKLE: {
+      const updatedFarkleCount = state.update('farkleCount', count => count + 1);
+      return updatedFarkleCount
+        .update('farkleCount', count => count % 3)
+        .update('currentScore', score => (updatedFarkleCount.farkleCount === 3 ? score - 1000 : score))
+        .set('nextRollDiceCount', INITIAL_STORE.nextRollDiceCount);
+    }
     default:
       return state;
   }

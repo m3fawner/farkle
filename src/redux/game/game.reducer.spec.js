@@ -34,7 +34,8 @@ describe('Game Reducer', () => {
 
   describe('#BANK_SCORE', () => {
     const TEST_STATE = INITIAL_STORE
-      .set('rollScore', 150);
+      .set('rollScore', 150)
+      .set('farkleCount', 1);
     const WITH_PREVIOUS_ROLLS = TEST_STATE.set('previousRolls', [{
       score: 150,
     }, {
@@ -57,6 +58,46 @@ describe('Game Reducer', () => {
       expect(reducer(WITH_PREVIOUS_ROLLS, {
         type: TYPES.BANK_SCORE,
       }).previousRolls).to.deep.equal([]);
+    });
+
+    it('should reset the farkleCount to 0', () => {
+      expect(reducer(TEST_STATE, {
+        type: TYPES.BANK_SCORE,
+      }).farkleCount).to.equal(0);
+    });
+  });
+
+  describe('#LOG_FARKLE', () => {
+    const ONE_SHY = INITIAL_STORE
+      .set('farkleCount', 2)
+      .set('nextRollDiceCount', 3)
+      .set('currentScore', 1000);
+    it('should increment the farkle count', () => {
+      expect(reducer(INITIAL_STORE, {
+        type: TYPES.LOG_FARKLE,
+      }).farkleCount).to.equal(1);
+    });
+    it('should reset the farkle count to 0', () => {
+      expect(reducer(ONE_SHY, {
+        type: TYPES.LOG_FARKLE,
+      }).farkleCount).to.equal(0);
+    });
+    it('should subtract 1000 from the score, as a penalty for getting 3 farkles', () => {
+      expect(reducer(ONE_SHY, {
+        type: TYPES.LOG_FARKLE,
+      }).currentScore).to.equal(0);
+    });
+
+    it('should not subtract 1000 from the score if one farkle is logged', () => {
+      expect(reducer(INITIAL_STORE, {
+        type: TYPES.LOG_FARKLE,
+      }).currentScore).to.equal(0);
+    });
+
+    it('should reset the number of rolling dice', () => {
+      expect(reducer(ONE_SHY, {
+        type: TYPES.LOG_FARKLE,
+      }).nextRollDiceCount).to.equal(INITIAL_STORE.nextRollDiceCount);
     });
   });
 

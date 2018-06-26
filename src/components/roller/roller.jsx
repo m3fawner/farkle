@@ -75,13 +75,17 @@ class Roller extends React.PureComponent {
     this.props.bankScore();
     this.rerollDice();
   }
+  rollFarkle = () => {
+    this.props.logFarkle();
+    this.rerollDice();
+  }
   render() {
     const { firstRoll, isRolling, values } = this.state;
     const { canBank, isFarkle } = this.props;
     const { t } = this.context;
     return (
       <div className="c-roller">
-        {isFarkle && <button className="c-roller__farkle-message c-button">{t(LocaleKeys.FARKLE)}</button>}
+        {isFarkle && <button className="c-roller__farkle-message c-button" onClick={this.rollFarkle}>{t(LocaleKeys.FARKLE)}</button>}
         <div className={classnames('c-roller__options', {
           'is-farkle': isFarkle,
         })}
@@ -120,6 +124,7 @@ Roller.propTypes = {
   bankScore: PropTypes.func.isRequired,
   canBank: PropTypes.bool.isRequired,
   isFarkle: PropTypes.bool.isRequired,
+  logFarkle: PropTypes.func.isRequired,
   nextRollDiceCount: PropTypes.number.isRequired,
   rollDice: PropTypes.func.isRequired,
   rollingTime: PropTypes.number,
