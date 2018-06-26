@@ -79,7 +79,9 @@ export const isHotDice = (dice, selected = Array.from(new Array(dice.length)).ma
   // Straight and All Pairs Check
   const nonZeroCounts = Object.values(score)
     .filter(num => num > 0);
-  if (nonZeroCounts.length === 6 || (dice.length === 6 && nonZeroCounts.length === 3)) {
+  const pairs = Object.values(score)
+    .filter(num => num === 2);
+  if (nonZeroCounts.length === 6 || (pairs.length === 3)) {
     return true;
   }
   Object.keys(score).forEach((key) => {
@@ -98,6 +100,7 @@ export const isHotDice = (dice, selected = Array.from(new Array(dice.length)).ma
         break;
     }
   });
+  console.log(score);
   return Object.values(score).reduce((prev, curr) => (curr > 0 ? false : prev), true);
 };
 

@@ -38,33 +38,53 @@ describe('Game Helper tests', () => {
     it('should not score dice with nearly 3 pairs (encountered during testing)', () => {
       expect(scoreDice([2, 2, 3, 3, 4, 6], [true, true, true, true, true, false])).to.equal(0);
     });
+
+    it('should not take into account non-realistic dice values', () => {
+      expect(scoreDice([7])).to.equal(0);
+    });
   });
 
   describe('#hasScoringDice', () => {
     it('should return true when there is a 1', () => {
-      expect(hasScoringDice([1, 2, 3, 4, 2, 3])).to.equal(true);
+      expect(hasScoringDice([1, 2, 3, 4, 2, 3])).to.be.true;
     });
     it('should return true when there is a 5', () => {
-      expect(hasScoringDice([5, 2, 3, 4, 2, 3])).to.equal(true);
+      expect(hasScoringDice([5, 2, 3, 4, 2, 3])).to.be.true;
     });
     it('should return true when there is a 3 of a kind', () => {
-      expect(hasScoringDice([2, 2, 3, 4, 2, 3])).to.equal(true);
+      expect(hasScoringDice([2, 2, 3, 4, 2, 3])).to.be.true;
     });
     it('should return true when there is a straight', () => {
-      expect(hasScoringDice([1, 2, 3, 4, 5, 6])).to.equal(true);
+      expect(hasScoringDice([1, 2, 3, 4, 5, 6])).to.be.true;
     });
     it('should return false when there are no scoring dice', () => {
-      expect(hasScoringDice([2, 3, 4, 2, 3])).to.equal(false);
+      expect(hasScoringDice([2, 3, 4, 2, 3])).to.be.false;
+    });
+
+    it('should return true when there is 3 pairs', () => {
+      expect(hasScoringDice([2, 2, 3, 3, 6, 6])).to.be.true;
+    });
+
+    it('should not take into account non-realistic dice values', () => {
+      expect(hasScoringDice([7])).to.be.false;
     });
   });
 
   describe('#isHotDice', () => {
     it('should be hot dice if all the dice are selected and each is a part of a scoring set', () => {
-      expect(isHotDice([1])).to.equal(true);
+      expect(isHotDice([1])).to.be.true;
     });
 
     it('should not be hot dice if none of the dice are selected', () => {
-      expect(isHotDice([1], [false])).to.equal(false);
+      expect(isHotDice([1], [false])).to.be.false;
+    });
+
+    it('should return true when there is 3 pairs', () => {
+      expect(isHotDice([2, 2, 3, 3, 6, 6])).to.be.true;
+    });
+
+    it('should not take into account non-realistic dice values', () => {
+      expect(isHotDice([5, 7])).to.be.true;
     });
   });
 });
