@@ -30,7 +30,8 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
         .update('currentScore', currentScore => currentScore
           + state.previousRolls.reduce((prev, curr) => prev + curr.score, 0)
           + state.rollScore)
-        .set('previousRolls', []);
+        .set('previousRolls', INITIAL_STORE.previousRolls)
+        .set('nextRollDiceCount', INITIAL_STORE.nextRollDiceCount);
     case TYPES.UPDATE_CURRENT_ROLL_VALUES:
       return state
         .set('rollScore', scoreDice(payload, state.currentlySelected))
