@@ -35,11 +35,28 @@ describe('Game Reducer', () => {
   describe('#BANK_SCORE', () => {
     const TEST_STATE = INITIAL_STORE
       .set('rollScore', 150);
+    const WITH_PREVIOUS_ROLLS = TEST_STATE.set('previousRolls', [{
+      score: 150,
+    }, {
+      score: 100,
+    }]);
 
-    it('should update the current score', () => {
+    it('should update the current score with the rollScore if that is the only roll', () => {
       expect(reducer(TEST_STATE, {
         type: TYPES.BANK_SCORE,
       }).currentScore).to.equal(150);
+    });
+
+    it('should update the current score with the current rollScore and also any previous roll values', () => {
+      expect(reducer(WITH_PREVIOUS_ROLLS, {
+        type: TYPES.BANK_SCORE,
+      }).currentScore).to.equal(400);
+    });
+
+    it('should reset the previous rolls to be an empty array', () => {
+      expect(reducer(WITH_PREVIOUS_ROLLS, {
+        type: TYPES.BANK_SCORE,
+      }).previousRolls).to.deep.equal([]);
     });
   });
 
