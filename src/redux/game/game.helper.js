@@ -100,7 +100,6 @@ export const isHotDice = (dice, selected = Array.from(new Array(dice.length)).ma
         break;
     }
   });
-  console.log(score);
   return Object.values(score).reduce((prev, curr) => (curr > 0 ? false : prev), true);
 };
 
