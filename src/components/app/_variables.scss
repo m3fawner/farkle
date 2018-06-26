@@ -3,7 +3,8 @@ $color: (
   primary: #222725,
   secondary: #899878,
   accent: #E4E6C3,
-  light: #F7F7F2
+  light: #F7F7F2,
+  error: #CC0000
 ) !default;
 @function color($key) {
     @return map-get($color, $key);
@@ -17,4 +18,21 @@ $spacing: (
 ) !default;
 @function spacing($key) {
   @return map-get($spacing, $key);
+}
+
+$font-size: (
+  normal: 1rem,
+  large: 1.25rem,
+  xlarge: 1.5rem
+) !default;
+@function font-size($key) {
+  @return map-get($font-size, $key);
+}
+
+$z-index: (
+  base: 0,
+  raised: 1
+) !default;
+@function z-index($key) {
+  @return map-get($z-index, $key);
 }

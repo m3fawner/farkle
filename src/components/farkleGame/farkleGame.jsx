@@ -7,6 +7,7 @@ import './farkleGame.scss';
 const FarkleGame = ({
   bankScore,
   canBank,
+  isFarkle,
   nextRollDiceCount,
   rollDice,
   selected,
@@ -20,6 +21,7 @@ const FarkleGame = ({
       selected={selected}
       numberOfDice={nextRollDiceCount}
       bankScore={bankScore}
+      isFarkle={isFarkle}
       rollDice={rollDice}
       updateCurrentRollValues={updateCurrentRollValues}
       updateSelectedValues={updateSelectedValues}
@@ -30,6 +32,7 @@ const FarkleGame = ({
 FarkleGame.propTypes = {
   bankScore: PropTypes.func.isRequired,
   canBank: PropTypes.bool.isRequired,
+  isFarkle: PropTypes.bool.isRequired,
   nextRollDiceCount: PropTypes.number.isRequired,
   rollDice: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.bool).isRequired,

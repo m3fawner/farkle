@@ -1,6 +1,13 @@
 import { createSelector } from 'reselect';
+import { scoreDice } from './game.helper';
 
 const Game = ({ game }) => game;
+
+const CurrentRoll = createSelector(
+  [Game],
+  ({ currentRoll }) => currentRoll,
+);
+
 export const SelectedDice = createSelector(
   [Game],
   ({ currentlySelected }) => currentlySelected,
@@ -29,4 +36,9 @@ export const PreviousRolls = createSelector(
 export const CanBank = createSelector(
   [RollScore],
   rollScore => rollScore > 0,
+);
+
+export const IsFarkle = createSelector(
+  [CurrentRoll],
+  currentRoll => scoreDice(currentRoll) === 0,
 );

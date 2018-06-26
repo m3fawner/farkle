@@ -46,4 +46,15 @@ describe('Game Selectors', () => {
       expect(selectors.CanBank(TEST_STORE)).to.be.false;
     });
   });
+
+  describe('#IsFarkle', () => {
+    const FARKLE = SPEC_STORE.setIn(['game', 'currentRoll'], [2, 2]);
+    const NOT_FARKLE = SPEC_STORE.setIn(['game', 'currentRoll'], [1]);
+    it('should return true for a farkle roll of no scoring dice', () => {
+      expect(selectors.IsFarkle(FARKLE)).to.be.true;
+    });
+    it('should return false for a farkle roll with scoring dice', () => {
+      expect(selectors.IsFarkle(NOT_FARKLE)).to.be.false;
+    });
+  });
 });

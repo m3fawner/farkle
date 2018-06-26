@@ -33,7 +33,6 @@ export default (state = INITIAL_STORE, { type, payload } = {}) => {
         .set('previousRolls', []);
     case TYPES.UPDATE_CURRENT_ROLL_VALUES:
       return state
-        .set('isFarkleRoll', scoreDice(payload) === 0)
         .set('rollScore', scoreDice(payload, state.currentlySelected))
         .set('currentRoll', payload);
     case TYPES.UPDATE_SELECTED:

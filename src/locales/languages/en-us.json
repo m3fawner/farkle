@@ -2,6 +2,7 @@
   "BANK_POINTS": "Bank Points",
   "BANK_POINTS_DISABLED": "Cannot bank points without any scoring dice selected.",
   "CURRENT_SCORE": "Current Score: {{currentScore}}",
+  "FARKLE": "Farkle",
   "PREVIOUS_ROLLS": "Previous Rolls:",
   "ROLL_DICE": "Roll Dice",
   "ROLL_SCORE": "Roll Score: {{rollScore}}"

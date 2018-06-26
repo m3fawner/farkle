@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import Button from '../button/button';
 import Dice from '../dice/dice';
 import IconDice from '../../icons/react-icons/dice';
@@ -76,34 +77,40 @@ class Roller extends React.PureComponent {
   }
   render() {
     const { firstRoll, isRolling, values } = this.state;
-    const { canBank } = this.props;
+    const { canBank, isFarkle } = this.props;
     const { t } = this.context;
     return (
       <div className="c-roller">
-        {values.map((val, index) => (
+        {isFarkle && <button className="c-roller__farkle-message c-button">{t(LocaleKeys.FARKLE)}</button>}
+        <div className={classnames('c-roller__options', {
+          'is-farkle': isFarkle,
+        })}
+        >
+          {values.map((val, index) => (
+            <Button
+              onClick={() => this.selectDice(index)}
+              key={Math.random()}
+            >
+              <Dice
+                isSelected={this.props.selected[index]}
+                value={val}
+              />
+            </Button>))}
           <Button
-            onClick={() => this.selectDice(index)}
-            key={Math.random()}
+            onClick={this.rollDice}
+            disabled={isRolling || (firstRoll && !this.hasSelectedDice)}
+            title={t(LocaleKeys.ROLL_DICE)}
           >
-            <Dice
-              isSelected={this.props.selected[index]}
-              value={val}
-            />
-          </Button>))}
-        <Button
-          onClick={this.rollDice}
-          disabled={isRolling || (firstRoll && !this.hasSelectedDice)}
-          title={t(LocaleKeys.ROLL_DICE)}
-        >
-          <IconDice />
-        </Button>
-        <Button
-          onClick={this.bankScore}
-          disabled={!canBank}
-          title={t(canBank ? LocaleKeys.BANK_POINTS : LocaleKeys.BANK_POINTS_DISABLED)}
-        >
-          <IconPiggyBank />
-        </Button>
+            <IconDice />
+          </Button>
+          <Button
+            onClick={this.bankScore}
+            disabled={!canBank}
+            title={t(canBank ? LocaleKeys.BANK_POINTS : LocaleKeys.BANK_POINTS_DISABLED)}
+          >
+            <IconPiggyBank />
+          </Button>
+        </div>
       </div>
     );
   }
@@ -112,6 +119,7 @@ class Roller extends React.PureComponent {
 Roller.propTypes = {
   bankScore: PropTypes.func.isRequired,
   canBank: PropTypes.bool.isRequired,
+  isFarkle: PropTypes.bool.isRequired,
   numberOfDice: PropTypes.number.isRequired,
   rollDice: PropTypes.func.isRequired,
   rollingTime: PropTypes.number,
